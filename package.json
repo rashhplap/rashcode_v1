@@ -4,7 +4,7 @@
   "description": "RashCode - coding agent CLI that works with any LLM — OpenAI, Gemini, DeepSeek, Ollama, and 200+ models",
   "type": "module",
   "bin": {
-    "rashcode": "./bin/RASHCODE"
+    "rashcode": "./bin/rashcode"
   },
   "files": [
     "bin/",
