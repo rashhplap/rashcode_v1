@@ -1,0 +1,129 @@
+{
+  "name": "RASHCODE-vscode",
+  "displayName": "RASHCODE",
+  "description": "Practical VS Code companion for RASHCODE with project-aware launch behavior and a real Control Center.",
+  "version": "0.1.1",
+  "publisher": "devnull-bootloader",
+  "engines": {
+    "vscode": "^1.95.0"
+  },
+  "categories": [
+    "Themes",
+    "Other"
+  ],
+  "activationEvents": [
+    "onStartupFinished",
+    "onCommand:RASHCODE.start",
+    "onCommand:RASHCODE.startInWorkspaceRoot",
+    "onCommand:RASHCODE.openDocs",
+    "onCommand:RASHCODE.openSetupDocs",
+    "onCommand:RASHCODE.openWorkspaceProfile",
+    "onCommand:RASHCODE.openControlCenter",
+    "onView:RASHCODE.controlCenter"
+  ],
+  "main": "./src/extension.js",
+  "files": [
+    "README.md",
+    "media/**",
+    "src/extension.js",
+    "src/presentation.js",
+    "src/state.js",
+    "themes/**"
+  ],
+  "contributes": {
+    "commands": [
+      {
+        "command": "RASHCODE.start",
+        "title": "RASHCODE: Launch in Terminal",
+        "category": "RASHCODE"
+      },
+      {
+        "command": "RASHCODE.startInWorkspaceRoot",
+        "title": "RASHCODE: Launch in Workspace Root",
+        "category": "RASHCODE"
+      },
+      {
+        "command": "RASHCODE.openDocs",
+        "title": "RASHCODE: Open Repository",
+        "category": "RASHCODE"
+      },
+      {
+        "command": "RASHCODE.openSetupDocs",
+        "title": "RASHCODE: Open Setup Guide",
+        "category": "RASHCODE"
+      },
+      {
+        "command": "RASHCODE.openWorkspaceProfile",
+        "title": "RASHCODE: Open Workspace Profile",
+        "category": "RASHCODE"
+      },
+      {
+        "command": "RASHCODE.openControlCenter",
+        "title": "RASHCODE: Open Control Center",
+        "category": "RASHCODE"
+      }
+    ],
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "RASHCODE",
+          "title": "RASHCODE",
+          "icon": "media/RASHCODE.svg"
+        }
+      ]
+    },
+    "views": {
+      "RASHCODE": [
+        {
+          "id": "RASHCODE.controlCenter",
+          "name": "Control Center",
+          "type": "webview"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "RASHCODE",
+      "properties": {
+        "RASHCODE.launchCommand": {
+          "type": "string",
+          "default": "RASHCODE",
+          "description": "Command run in the integrated terminal when launching RASHCODE."
+        },
+        "RASHCODE.terminalName": {
+          "type": "string",
+          "default": "RASHCODE",
+          "description": "Integrated terminal tab name for RASHCODE sessions."
+        },
+        "RASHCODE.useOpenAIShim": {
+          "type": "boolean",
+          "default": false,
+          "description": "Optionally set RASH_CODE_USE_OPENAI=1 in launched RASHCODE terminals."
+        }
+      }
+    },
+    "themes": [
+      {
+        "label": "RASHCODE Terminal Black",
+        "uiTheme": "vs-dark",
+        "path": "./themes/RASHCODE-Terminal-Black.json"
+      }
+    ]
+  },
+  "scripts": {
+    "test": "node --test ./src/*.test.js",
+    "lint": "node -e \"for (const file of require('node:fs').readdirSync('./src')) { if (file.endsWith('.js')) { require('node:child_process').execFileSync(process.execPath, ['--check', require('node:path').join('src', file)], { stdio: 'inherit' }); } }\"",
+    "package": "npx @vscode/vsce package --no-dependencies"
+  },
+  "keywords": [
+    "RASHCODE",
+    "terminal",
+    "theme",
+    "cli",
+    "llm"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/RASHHPLAP/RASHCODE"
+  },
+  "license": "MIT"
+}
