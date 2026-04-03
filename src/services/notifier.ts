@@ -35,7 +35,7 @@ export async function sendNotification(
   })
 }
 
-const DEFAULT_TITLE = 'Open RASH'
+const DEFAULT_TITLE = 'RASHCODE'
 
 async function sendToChannel(
   channel: string,

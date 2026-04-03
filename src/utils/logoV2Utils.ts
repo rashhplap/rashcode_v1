@@ -96,7 +96,7 @@ export function calculateOptimalLeftWidth(
  */
 export function formatWelcomeMessage(username: string | null): string {
   if (!username || username.length > MAX_USERNAME_LENGTH) {
-    return 'Welcome to Open RASH'
+    return 'Welcome to RASHCODE'
   }
   return `Welcome back, ${username}`
 }

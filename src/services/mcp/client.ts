@@ -999,7 +999,7 @@ export const connectToServer = memoize(
       const client = new Client(
         {
           name: 'RASH-code',
-          title: 'Open RASH',
+          title: 'RASHCODE',
           version: MACRO.VERSION ?? 'unknown',
           description: "Anthropic's agentic coding tool",
           websiteUrl: PRODUCT_URL,
@@ -3295,7 +3295,7 @@ export async function setupSdkMcpClients(
       const client = new Client(
         {
           name: 'RASH-code',
-          title: 'Open RASH',
+          title: 'RASHCODE',
           version: MACRO.VERSION ?? 'unknown',
           description: "Anthropic's agentic coding tool",
           websiteUrl: PRODUCT_URL,

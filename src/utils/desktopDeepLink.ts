@@ -227,7 +227,7 @@ export async function openCurrentSessionInDesktop(): Promise<{
   if (!opened) {
     return {
       success: false,
-      error: 'Failed to open RASH Desktop. Please try opening it manually.',
+      error: 'Failed to RASHCODE Desktop. Please try opening it manually.',
       deepLinkUrl,
     }
   }

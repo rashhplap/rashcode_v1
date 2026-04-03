@@ -41,7 +41,7 @@ export function createWhatsNewFeed(releaseNotes: string[]): FeedConfig {
   });
   const emptyMessage = "external" === 'ant' ? 'Unable to fetch latest RASH-cli-internal commits' : 'Check /release-notes for recent updates';
   return {
-    title: "external" === 'ant' ? "Open RASH Updates [ANT-ONLY: Latest CC commits]" : "Open RASH Updates",
+    title: "external" === 'ant' ? "RASHCODE Updates [ANT-ONLY: Latest CC commits]" : "RASHCODE Updates",
     lines,
     footer: lines.length > 0 ? '/release-notes for more' : undefined,
     emptyMessage
@@ -73,7 +73,7 @@ export function createProjectOnboardingFeed(steps: Step[]): FeedConfig {
 }
 export function createGuestPassesFeed(): FeedConfig {
   const reward = getCachedReferrerReward();
-  const subtitle = reward ? `Share Open RASH and earn ${formatCreditAmount(reward)} of extra usage` : 'Share Open RASH with friends';
+  const subtitle = reward ? `Share RASHCODE and earn ${formatCreditAmount(reward)} of extra usage` : 'Share RASHCODE with friends';
   return {
     title: '3 guest passes',
     lines: [],
