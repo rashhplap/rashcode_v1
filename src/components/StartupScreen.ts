@@ -137,7 +137,7 @@ function detectProvider(): { name: string; model: string; baseUrl: string; isLoc
   }
 
   // Default: Nvidia API
-  const model = process.env.NVIDIA_MODEL || process.env.RASH_MODEL || 'meta/llama-3.1-70b-instruct'
+  const model = process.env.NVIDIA_MODEL || process.env.RASH_MODEL || 'z-ai/glm5'
   return { name: 'Nvidia API', model, baseUrl: 'https://integrate.api.nvidia.com/v1', isLocal: false }
 }
 

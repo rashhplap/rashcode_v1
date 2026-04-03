@@ -215,12 +215,12 @@ export function normalizeRecommendationGoal(
 export function getGoalDefaultOpenAIModel(goal: RecommendationGoal): string {
   switch (goal) {
     case 'latency':
-      return 'gpt-4o-mini'
+      return 'z-ai/glm5'
     case 'coding':
-      return 'gpt-4o'
+      return 'z-ai/glm5'
     case 'balanced':
     default:
-      return 'gpt-4o'
+      return 'z-ai/glm5'
   }
 }
 

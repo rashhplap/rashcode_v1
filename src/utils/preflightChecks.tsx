@@ -15,76 +15,21 @@ export interface PreflightCheckResult {
   sslHint?: string;
 }
 async function checkEndpoints(): Promise<PreflightCheckResult> {
-  try {
-    const oauthConfig = getOauthConfig();
-    const tokenUrl = new URL(oauthConfig.TOKEN_URL);
-    const endpoints = [`${oauthConfig.BASE_API_URL}/api/hello`, `${tokenUrl.origin}/v1/oauth/hello`];
-    const checkEndpoint = async (url: string): Promise<PreflightCheckResult> => {
-      try {
-        const response = await axios.get(url, {
-          headers: {
-            'User-Agent': getUserAgent()
-          }
-        });
-        if (response.status !== 200) {
-          const hostname = new URL(url).hostname;
-          return {
-            success: false,
-            error: `Failed to connect to ${hostname}: Status ${response.status}`
-          };
-        }
-        return {
-          success: true
-        };
-      } catch (error) {
-        const hostname = new URL(url).hostname;
-        const sslHint = getSSLErrorHint(error);
-        return {
-          success: false,
-          error: `Failed to connect to ${hostname}: ${error instanceof Error ? (error as ErrnoException).code || error.message : String(error)}`,
-          sslHint: sslHint ?? undefined
-        };
-      }
-    };
-    const results = await Promise.all(endpoints.map(checkEndpoint));
-    const failedResult = results.find(result => !result.success);
-    if (failedResult) {
-      // Log failure to Statsig
-      logEvent('tengu_preflight_check_failed', {
-        isConnectivityError: false,
-        hasErrorMessage: !!failedResult.error,
-        isSSLError: !!failedResult.sslHint
-      });
-    }
-    return failedResult || {
-      success: true
-    };
-  } catch (error) {
-    logError(error as Error);
-
-    // Log to Statsig
-    logEvent('tengu_preflight_check_failed', {
-      isConnectivityError: true
-    });
-    return {
-      success: false,
-      error: `Connectivity check error: ${error instanceof Error ? (error as ErrnoException).code || error.message : String(error)}`
-    };
-  }
+  return { success: true };
 }
 interface PreflightStepProps {
   onSuccess: () => void;
 }
-export function PreflightStep(t0) {
+export function PreflightStep(t0: PreflightStepProps) {
   const $ = _c(12);
   const {
     onSuccess
   } = t0;
-  const [result, setResult] = useState(null);
-  const [isChecking, setIsChecking] = useState(true);
+  const [result, setResult] = useState<PreflightCheckResult | null>(null);
+  const [isChecking, setIsChecking] = useState<boolean>(true);
   const showSpinner = useTimeout(1000) && isChecking;
-  let t1;
-  let t2;
+  let t1: any;
+  let t2: any[];
   if ($[0] === Symbol.for("react.memo_cache_sentinel")) {
     t1 = () => {
       const run = async function run() {
