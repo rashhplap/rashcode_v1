@@ -43,6 +43,10 @@ export function getSmallFastModel(): ModelName {
   if (getAPIProvider() === 'openai') {
     return process.env.OPENAI_MODEL || 'gpt-4o-mini'
   }
+  // For Nvidia provider, use a fast model
+  if (getAPIProvider() === 'nvidia') {
+    return process.env.NVIDIA_MODEL || process.env.RASH_MODEL || 'z-ai/glm5'
+  }
   return getDefaultHaikuModel()
 }
 
@@ -127,6 +131,10 @@ export function getDefaultOpusModel(): ModelName {
   if (getAPIProvider() === 'codex') {
     return process.env.OPENAI_MODEL || 'gpt-5.4'
   }
+  // Nvidia provider: use user-specified model or default
+  if (getAPIProvider() === 'nvidia') {
+    return process.env.NVIDIA_MODEL || process.env.RASH_MODEL || 'z-ai/glm5'
+  }
   // 3P providers (Bedrock, Vertex, Foundry) — kept as a separate branch
   // even when values match, since 3P availability lags firstParty and
   // these will diverge again at the next model launch.
@@ -153,6 +161,10 @@ export function getDefaultSonnetModel(): ModelName {
   if (getAPIProvider() === 'codex') {
     return process.env.OPENAI_MODEL || 'gpt-5.4'
   }
+  // Nvidia provider
+  if (getAPIProvider() === 'nvidia') {
+    return process.env.NVIDIA_MODEL || process.env.RASH_MODEL || 'z-ai/glm5'
+  }
   // Default to Sonnet 4.5 for 3P since they may not have 4.6 yet
   if (getAPIProvider() !== 'firstParty') {
     return getModelStrings().sonnet45
@@ -176,6 +188,10 @@ export function getDefaultHaikuModel(): ModelName {
   // Codex provider
   if (getAPIProvider() === 'codex') {
     return process.env.OPENAI_MODEL || 'gpt-5.4'
+  }
+  // Nvidia provider
+  if (getAPIProvider() === 'nvidia') {
+    return process.env.NVIDIA_MODEL || process.env.RASH_MODEL || 'z-ai/glm5'
   }
 
   // Haiku 4.5 is available on all platforms (first-party, Foundry, Bedrock, Vertex)
@@ -232,6 +248,10 @@ export function getDefaultMainLoopModelSetting(): ModelName | ModelAlias {
   // Codex provider: always use the configured Codex model (default gpt-5.4)
   if (getAPIProvider() === 'codex') {
     return process.env.OPENAI_MODEL || 'gpt-5.4'
+  }
+  // Nvidia provider: always use the configured Nvidia model
+  if (getAPIProvider() === 'nvidia') {
+    return process.env.NVIDIA_MODEL || process.env.RASH_MODEL || 'z-ai/glm5'
   }
 
   // Ants default to defaultModel from flag config, or Opus 1M if not configured

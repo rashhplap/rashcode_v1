@@ -177,7 +177,8 @@ export async function getAnthropicClient({
   if (
     isEnvTruthy(process.env.RASH_CODE_USE_OPENAI) ||
     isEnvTruthy(process.env.RASH_CODE_USE_GITHUB) ||
-    isEnvTruthy(process.env.RASH_CODE_USE_GEMINI)
+    isEnvTruthy(process.env.RASH_CODE_USE_GEMINI) ||
+    getAPIProvider() === 'nvidia'
   ) {
     const { createOpenAIShimClient } = await import('./openaiShim.js')
     return createOpenAIShimClient({

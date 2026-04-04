@@ -13,6 +13,7 @@
 
 export const VALID_PROVIDERS = [
   'anthropic',
+  'nvidia',
   'openai',
   'gemini',
   'github',
@@ -100,6 +101,13 @@ export function applyProviderFlag(
       process.env.OPENAI_BASE_URL ??= 'http://localhost:11434/v1'
       process.env.OPENAI_API_KEY ??= 'ollama'
       if (model) process.env.OPENAI_MODEL ??= model
+      break
+
+    case 'nvidia':
+      process.env.RASH_CODE_USE_OPENAI = '1'
+      process.env.OPENAI_BASE_URL ??= 'https://integrate.api.nvidia.com/v1'
+      process.env.OPENAI_API_KEY ??= process.env.NVIDIA_API_KEY ?? process.env.RASH_API_KEY ?? ''
+      process.env.OPENAI_MODEL ??= model ?? process.env.NVIDIA_MODEL ?? process.env.RASH_MODEL ?? 'z-ai/glm5'
       break
   }
 

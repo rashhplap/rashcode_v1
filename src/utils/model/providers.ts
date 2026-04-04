@@ -10,6 +10,7 @@ export type APIProvider =
   | 'gemini'
   | 'github'
   | 'codex'
+  | 'nvidia'
 
 export function getAPIProvider(): APIProvider {
   return isEnvTruthy(process.env.RASH_CODE_USE_GEMINI)
@@ -26,11 +27,17 @@ export function getAPIProvider(): APIProvider {
             ? 'vertex'
             : isEnvTruthy(process.env.RASH_CODE_USE_FOUNDRY)
               ? 'foundry'
-              : 'firstParty'
+              : isEnvTruthy(process.env.RASH_CODE_USE_ANTHROPIC)
+                ? 'firstParty'
+                : 'nvidia'
 }
 
 export function usesAnthropicAccountFlow(): boolean {
   return getAPIProvider() === 'firstParty'
+}
+
+export function isNvidiaDefaultProvider(): boolean {
+  return getAPIProvider() === 'nvidia'
 }
 function isCodexModel(): boolean {
   const model = (process.env.OPENAI_MODEL || '').toLowerCase()

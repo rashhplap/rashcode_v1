@@ -118,7 +118,9 @@ export function isAnthropicAuthEnabled(): boolean {
     isEnvTruthy(process.env.RASH_CODE_USE_FOUNDRY) ||
     isEnvTruthy(process.env.RASH_CODE_USE_OPENAI) ||
     isEnvTruthy(process.env.RASH_CODE_USE_GEMINI) ||
-    isEnvTruthy(process.env.RASH_CODE_USE_GITHUB)
+    isEnvTruthy(process.env.RASH_CODE_USE_GITHUB) ||
+    isEnvTruthy(process.env.RASH_CODE_USE_NVIDIA) ||
+    !isEnvTruthy(process.env.RASH_CODE_USE_ANTHROPIC)
 
   // Check if user has configured an external API key source
   // This allows externally-provided API keys to work (without requiring proxy configuration)
@@ -1733,7 +1735,7 @@ export function getSubscriptionName(): string {
   }
 }
 
-/** Check if using third-party services (Bedrock or Vertex or Foundry or OpenAI-compatible or Gemini or GitHub Models) */
+/** Check if using third-party services (Bedrock or Vertex or Foundry or OpenAI-compatible or Gemini or GitHub Models or Nvidia) */
 export function isUsing3PServices(): boolean {
   return !!(
     isEnvTruthy(process.env.RASH_CODE_USE_BEDROCK) ||
@@ -1741,7 +1743,8 @@ export function isUsing3PServices(): boolean {
     isEnvTruthy(process.env.RASH_CODE_USE_FOUNDRY) ||
     isEnvTruthy(process.env.RASH_CODE_USE_OPENAI) ||
     isEnvTruthy(process.env.RASH_CODE_USE_GEMINI) ||
-    isEnvTruthy(process.env.RASH_CODE_USE_GITHUB)
+    isEnvTruthy(process.env.RASH_CODE_USE_GITHUB) ||
+    isEnvTruthy(process.env.RASH_CODE_USE_NVIDIA)
   )
 }
 

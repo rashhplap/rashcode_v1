@@ -93,6 +93,10 @@ function getProviderValidationError(
   }
 
   if (!env.OPENAI_API_KEY && !isLocalProviderUrl(request.baseUrl)) {
+    // Nvidia default provider: require NVIDIA_API_KEY
+    if (request.baseUrl?.includes('integrate.api.nvidia.com')) {
+      return 'NVIDIA_API_KEY is required. Get your free key at https://build.nvidia.com and set it: export NVIDIA_API_KEY=your-key'
+    }
     const hasGithubToken = !!(env.GITHUB_TOKEN?.trim() || env.GH_TOKEN?.trim())
     if (useGithub && hasGithubToken) {
       return null
@@ -148,6 +152,25 @@ async function main(): Promise<void> {
     } else {
       applyProfileEnvToProcessEnv(process.env, startupEnv)
     }
+  }
+
+  // Auto-bootstrap Nvidia as default provider when nothing is configured.
+  // This replaces Anthropic's first-party API as the default.
+  if (
+    !isEnvTruthy(process.env.RASH_CODE_USE_OPENAI) &&
+    !isEnvTruthy(process.env.RASH_CODE_USE_GEMINI) &&
+    !isEnvTruthy(process.env.RASH_CODE_USE_GITHUB) &&
+    !isEnvTruthy(process.env.RASH_CODE_USE_BEDROCK) &&
+    !isEnvTruthy(process.env.RASH_CODE_USE_VERTEX) &&
+    !isEnvTruthy(process.env.RASH_CODE_USE_FOUNDRY) &&
+    !isEnvTruthy(process.env.RASH_CODE_USE_ANTHROPIC)
+  ) {
+    // Default to Nvidia free API via OpenAI-compatible shim
+    process.env.RASH_CODE_USE_OPENAI = '1'
+    process.env.RASH_CODE_USE_NVIDIA = '1'
+    process.env.OPENAI_BASE_URL ??= 'https://integrate.api.nvidia.com/v1'
+    process.env.OPENAI_API_KEY ??= process.env.NVIDIA_API_KEY ?? process.env.RASH_API_KEY ?? ''
+    process.env.OPENAI_MODEL ??= process.env.NVIDIA_MODEL ?? process.env.RASH_MODEL ?? 'z-ai/glm5'
   }
 
   validateProviderEnvOrExit()

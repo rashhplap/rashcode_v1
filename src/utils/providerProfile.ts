@@ -25,6 +25,8 @@ const PROFILE_ENV_KEYS = [
   'RASH_CODE_USE_BEDROCK',
   'RASH_CODE_USE_VERTEX',
   'RASH_CODE_USE_FOUNDRY',
+  'RASH_CODE_USE_NVIDIA',
+  'RASH_CODE_USE_ANTHROPIC',
   'OPENAI_BASE_URL',
   'OPENAI_MODEL',
   'OPENAI_API_KEY',
@@ -35,6 +37,10 @@ const PROFILE_ENV_KEYS = [
   'GEMINI_MODEL',
   'GEMINI_BASE_URL',
   'GOOGLE_API_KEY',
+  'NVIDIA_API_KEY',
+  'NVIDIA_MODEL',
+  'RASH_API_KEY',
+  'RASH_MODEL',
 ] as const
 
 const SECRET_ENV_KEYS = [
@@ -42,6 +48,8 @@ const SECRET_ENV_KEYS = [
   'CODEX_API_KEY',
   'GEMINI_API_KEY',
   'GOOGLE_API_KEY',
+  'NVIDIA_API_KEY',
+  'RASH_API_KEY',
 ] as const
 
 export type ProviderProfile = 'openai' | 'ollama' | 'codex' | 'gemini' | 'atomic-chat'
@@ -403,7 +411,9 @@ export function hasExplicitProviderSelection(
     processEnv.RASH_CODE_USE_GEMINI !== undefined ||
     processEnv.RASH_CODE_USE_BEDROCK !== undefined ||
     processEnv.RASH_CODE_USE_VERTEX !== undefined ||
-    processEnv.RASH_CODE_USE_FOUNDRY !== undefined
+    processEnv.RASH_CODE_USE_FOUNDRY !== undefined ||
+    processEnv.RASH_CODE_USE_NVIDIA !== undefined ||
+    processEnv.RASH_CODE_USE_ANTHROPIC !== undefined
   )
 }
 
