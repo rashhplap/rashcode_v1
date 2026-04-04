@@ -928,14 +928,15 @@ export function getAssistantMessageFromError(
     })
   }
 
-  if (error instanceof Error) {
+  if (error instanceof Error || (error && typeof (error as any).message === 'string')) {
     return createAssistantAPIErrorMessage({
-      content: `${API_ERROR_MESSAGE_PREFIX}: ${error.message}`,
+      content: `${API_ERROR_MESSAGE_PREFIX}: ${(error as any).message}`,
       error: 'unknown',
     })
   }
+  
   return createAssistantAPIErrorMessage({
-    content: API_ERROR_MESSAGE_PREFIX,
+    content: `${API_ERROR_MESSAGE_PREFIX}: ${JSON.stringify(error)}`,
     error: 'unknown',
   })
 }

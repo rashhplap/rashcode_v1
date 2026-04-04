@@ -1,6 +1,6 @@
 {
   "name": "@rashhplap/rashcode",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "RashCode - coding agent CLI that works with any LLM — OpenAI, Gemini, DeepSeek, Ollama, and 200+ models",
   "type": "module",
   "bin": {
